@@ -19,19 +19,23 @@ import java.net.URL;
 public class ImageLoader {
 
     private ImageView mImageView;
+    private String mUrl;
 
     private Handler handler = new Handler(){
 
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            mImageView.setImageBitmap((Bitmap) msg.obj);
+            if(mImageView.getTag().equals(mUrl)){
+                mImageView.setImageBitmap((Bitmap) msg.obj);
+            }
         }
     };
 
     public void showImageByThread(ImageView imageView , final String url){
 
         mImageView = imageView;
+        mUrl = url;
         new Thread(){
 
             @Override
